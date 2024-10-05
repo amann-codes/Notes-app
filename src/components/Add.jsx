@@ -6,8 +6,8 @@ export default function Add({ createGroup }) {
       <svg
         onClick={createGroup}
         className="cursor-pointer"
-        width="60"  // Adjusted size
-        height="60"  // Adjusted size
+        width="60"
+        height="60"
         viewBox="0 0 93 93"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"

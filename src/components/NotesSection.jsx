@@ -24,14 +24,12 @@ export default function NotesSection({ selectedGroup, isMobile, onBack }) {
   const formatTimestamp = (timestamp) => {
     const date = new Date(timestamp);
 
-    // Format date: 9 Mar 2023
     const dateStr = date.toLocaleString("en-US", {
       day: "numeric",
       month: "short",
       year: "numeric",
     });
 
-    // Format time: 10:10 AM
     const timeStr = date.toLocaleString("en-US", {
       hour: "numeric",
       minute: "2-digit",
@@ -52,13 +50,12 @@ export default function NotesSection({ selectedGroup, isMobile, onBack }) {
       const newNoteObj = {
         id: Date.now(),
         content: newNote,
-        timestamp: new Date().toISOString(), // Store as ISO string for accurate parsing
+        timestamp: new Date().toISOString(),
       };
 
       const updatedNotes = [...notes, newNoteObj];
       setNotes(updatedNotes);
 
-      // Update localStorage
       const storedGroups = JSON.parse(localStorage.getItem("groups")) || [];
       const updatedGroups = storedGroups.map((group) =>
         group.id === selectedGroup.id
@@ -80,8 +77,7 @@ export default function NotesSection({ selectedGroup, isMobile, onBack }) {
 
   return (
     <div className="flex-1 flex flex-col h-full">
-      {/* Header remains the same */}
-      <div className="bg-[#E8E8E8] p-4 flex items-center">
+      <div className="bg-[#001F8B] p-4 flex items-center">
         {isMobile && (
           <button onClick={onBack} className="mr-4">
             <svg
@@ -106,10 +102,10 @@ export default function NotesSection({ selectedGroup, isMobile, onBack }) {
         >
           {selectedGroup?.initials}
         </div>
-        <h2 className="text-2xl font-bold">{selectedGroup?.name}</h2>
+        <h2 className="text-2xl font-bold text-white">{selectedGroup?.name}</h2>
       </div>
 
-      <div className="flex-1 overflow-y-auto p-4 bg-white">
+      <div className="flex-1 overflow-y-auto p-4 bg-[#DAE5F5]">
         {!notes.length ? (
           <div className="flex flex-col items-center justify-center h-full text-gray-500">
             <p className="text-2xl mb-2">No notes yet</p>
@@ -117,7 +113,7 @@ export default function NotesSection({ selectedGroup, isMobile, onBack }) {
           </div>
         ) : (
           notes.map((note) => (
-            <div className="flex flex-col mb-4 p-3 bg-[#DAE5F5] rounded-md">
+            <div className="flex flex-col mb-4 p-3 bg-[#FFFFFF] rounded-md">
               <p className="mb-2">{note.content}</p>
               <div className="flex justify-end">
                 {formatTimestamp(note.timestamp)}
@@ -127,12 +123,12 @@ export default function NotesSection({ selectedGroup, isMobile, onBack }) {
         )}
       </div>
 
-      <div className="p-4 bg-[#E8E8E8] sticky bottom-0">
+      <div className="p-4 bg-[#001F8B] sticky bottom-0">
         <div className="relative">
           <textarea
             className="w-full p-3 pr-12 rounded-md resize-none border-2 border-[#16008B]"
             rows="1"
-            placeholder="Enter your text here..."
+            placeholder="Here’s the sample text for sample work"
             value={newNote}
             onChange={(e) => setNewNote(e.target.value)}
             onKeyDown={handleKeyDown}

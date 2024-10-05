@@ -6,7 +6,6 @@ export default function GroupsSection({ onSelectGroup, isMobile }) {
   const [add, setAdd] = useState(false);
   const [groups, setGroups] = useState([]);
 
-  // Load groups from localStorage on initial render
   useEffect(() => {
     const loadGroups = () => {
       const storedGroups = JSON.parse(localStorage.getItem("groups")) || [];
@@ -22,9 +21,9 @@ export default function GroupsSection({ onSelectGroup, isMobile }) {
       name: groupName,
       color,
       initials: getInitials(groupName),
-      notes: []
+      notes: [],
     };
-    
+
     const updatedGroups = [...groups, newGroup];
     setGroups(updatedGroups);
     localStorage.setItem("groups", JSON.stringify(updatedGroups));
@@ -41,13 +40,17 @@ export default function GroupsSection({ onSelectGroup, isMobile }) {
   };
 
   return (
-    <div className={`relative bg-white shadow-md flex flex-col ${isMobile ? 'w-full h-full' : 'w-[300px] h-screen'}`}>
+    <div
+      className={`relative bg-white shadow-md flex flex-col ${
+        isMobile ? "w-full h-full" : "w-[300px] h-screen"
+      }`}
+    >
       <p className="mx-auto text-3xl font-medium py-9">Pocket Notes</p>
-      
+
       <div className="flex-1 overflow-y-auto p-3 scrollbar">
         {groups.map((group) => (
-          <div 
-            key={group.id} 
+          <div
+            key={group.id}
             className="flex items-center gap-4 mb-3 p-2 rounded-md cursor-pointer hover:bg-gray-100"
             onClick={() => onSelectGroup(group)}
           >
