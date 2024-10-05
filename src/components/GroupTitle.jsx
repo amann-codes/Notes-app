@@ -1,12 +1,14 @@
-import React from 'react'
-import GroupLogo from './GroupLogo.jsx'
-import GroupName from './GroupName.jsx'
+import React from 'react';
+import GroupLogo from './GroupLogo.jsx';
+import GroupName from './GroupName.jsx';
 
-export default function GroupTitle() {
+export default function GroupTitle({ group }) {
+  if (!group) return null; // Show nothing if no group is selected
+
   return (
-    <div className='flex flex-row justify-start items-center p-3 gap-x-6'>
-        <GroupLogo/>
-        <GroupName/>
+    <div className='flex flex-row justify-start items-center p-3 gap-x-6 cursor-pointer'>
+      <GroupLogo color={group.color} initials={group.initials} />
+      <GroupName name={group.name} />
     </div>
-  )
+  );
 }

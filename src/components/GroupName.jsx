@@ -1,7 +1,9 @@
-import React from 'react'
+import React from 'react';
 
-export default function GroupName() {
+export default function GroupName({ name }) {
   return (
-    <div className='text-lg font-medium'>GroupName</div>
-  )
+    <div className='text-lg font-medium'>
+      {name}
+    </div>
+  );
 }
