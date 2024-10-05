@@ -32,7 +32,7 @@ export default function GroupsSection({ onSelectGroup, isMobile }) {
   };
 
   return (
-    <div className={`bg-white shadow-md flex flex-col ${isMobile ? 'w-full h-full' : 'w-[300px] h-screen'}`}>
+    <div className={`relative bg-white shadow-md flex flex-col ${isMobile ? 'w-full h-full' : 'w-[300px] h-screen'}`}>
       <p className="mx-auto text-3xl font-medium py-9">Pocket Notes</p>
       
       <div className="flex-1 overflow-y-auto p-3 scrollbar">
