@@ -6,19 +6,28 @@ export default function GroupsSection({ onSelectGroup, isMobile }) {
   const [add, setAdd] = useState(false);
   const [groups, setGroups] = useState([]);
 
+  // Load groups from localStorage on initial render
   useEffect(() => {
-    const storedGroups = JSON.parse(localStorage.getItem("groups")) || [];
-    setGroups(storedGroups);
+    const loadGroups = () => {
+      const storedGroups = JSON.parse(localStorage.getItem("groups")) || [];
+      setGroups(storedGroups);
+    };
+
+    loadGroups();
   }, []);
 
-  useEffect(() => {
-    localStorage.setItem("groups", JSON.stringify(groups));
-  }, [groups]);
-
   const handleCreateGroup = (groupName, color) => {
-    const newGroup = { id: Date.now(), name: groupName, color, initials: getInitials(groupName), notes: [] };
+    const newGroup = {
+      id: Date.now(),
+      name: groupName,
+      color,
+      initials: getInitials(groupName),
+      notes: []
+    };
+    
     const updatedGroups = [...groups, newGroup];
     setGroups(updatedGroups);
+    localStorage.setItem("groups", JSON.stringify(updatedGroups));
     setAdd(false);
   };
 
@@ -39,7 +48,7 @@ export default function GroupsSection({ onSelectGroup, isMobile }) {
         {groups.map((group) => (
           <div 
             key={group.id} 
-            className="flex items-center gap-4 mb-3 p-2 rounded-md cursor-pointer"
+            className="flex items-center gap-4 mb-3 p-2 rounded-md cursor-pointer hover:bg-gray-100"
             onClick={() => onSelectGroup(group)}
           >
             <div
@@ -60,7 +69,6 @@ export default function GroupsSection({ onSelectGroup, isMobile }) {
           isOpen={add}
           onClose={() => setAdd(false)}
           createGroup={handleCreateGroup}
-          isMobile={isMobile}
         />
       )}
     </div>
