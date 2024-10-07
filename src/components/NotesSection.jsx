@@ -52,7 +52,7 @@ export default function NotesSection({ selectedGroup, isMobile, onBack }) {
       const newNoteObj = {
         id: Date.now(),
         content: newNote,
-        timestamp: new Date().toISOString(), // Store as ISO string for accurate parsing
+        timestamp: new Date().toISOString(),
       };
 
       const updatedNotes = [...notes, newNoteObj];
@@ -80,8 +80,7 @@ export default function NotesSection({ selectedGroup, isMobile, onBack }) {
 
   return (
     <div className="flex-1 flex flex-col h-full">
-      {/* Header remains the same */}
-      <div className="bg-[#E8E8E8] p-4 flex items-center">
+      <div className="bg-[#001F8B] p-4 flex items-center">
         {isMobile && (
           <button onClick={onBack} className="mr-4">
             <svg
@@ -106,10 +105,10 @@ export default function NotesSection({ selectedGroup, isMobile, onBack }) {
         >
           {selectedGroup?.initials}
         </div>
-        <h2 className="text-2xl font-bold">{selectedGroup?.name}</h2>
+        <h2 className="text-2xl font-bold text-white">{selectedGroup?.name}</h2>
       </div>
 
-      <div className="flex-1 overflow-y-auto p-4 bg-white">
+      <div className="flex-1 overflow-y-auto p-4 bg-[#DAE5F5]">
         {!notes.length ? (
           <div className="flex flex-col items-center justify-center h-full text-gray-500">
             <p className="text-2xl mb-2">No notes yet</p>
@@ -117,7 +116,7 @@ export default function NotesSection({ selectedGroup, isMobile, onBack }) {
           </div>
         ) : (
           notes.map((note) => (
-            <div className="flex flex-col mb-4 p-3 bg-[#DAE5F5] rounded-md">
+            <div key={note.id} className="flex flex-col mb-4 p-3 bg-white rounded-md shadow-md">
               <p className="mb-2">{note.content}</p>
               <div className="flex justify-end">
                 {formatTimestamp(note.timestamp)}
@@ -127,10 +126,10 @@ export default function NotesSection({ selectedGroup, isMobile, onBack }) {
         )}
       </div>
 
-      <div className="p-4 bg-[#E8E8E8] sticky bottom-0">
+      <div className="p-6 bg-[#001F8B] sticky bottom-0">
         <div className="relative">
           <textarea
-            className="w-full p-3 pr-12 rounded-md resize-none border-2 border-[#16008B]"
+            className="w-full h-[100px] p-3 pr-12 rounded-md resize-none border-2 border-[#16008B]"
             rows="1"
             placeholder="Enter your text here..."
             value={newNote}
@@ -138,28 +137,19 @@ export default function NotesSection({ selectedGroup, isMobile, onBack }) {
             onKeyDown={handleKeyDown}
           ></textarea>
           <button
-            className={`absolute bottom-2 right-3 p-2 rounded-full ${
-              newNote.trim()
-                ? "text-[#16008B] cursor-pointer"
-                : "text-gray-300 cursor-not-allowed"
-            }`}
+            className="absolute bottom-2 right-3 p-2"
             onClick={handleAddNote}
             disabled={!newNote.trim()}
           >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-6 w-6"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M14 5l7 7m0 0l-7 7m7-7H3"
-              />
-            </svg>
+            {newNote.trim() ? (
+              <svg width="25" height="29" viewBox="0 0 35 29" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M0 29V18.125L14.5 14.5L0 10.875V0L34.4375 14.5L0 29Z" fill="#001F8B"/>
+              </svg>
+            ) : (
+              <svg width="25" height="29" viewBox="0 0 35 29" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M0 29V18.125L14.5 14.5L0 10.875V0L34.4375 14.5L0 29Z" fill="#ABABAB"/>
+              </svg>
+            )}
           </button>
         </div>
       </div>

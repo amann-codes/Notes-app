@@ -2,11 +2,10 @@ import React, { useState, useEffect } from "react";
 import Add from "./Add";
 import CreateGroup from "./CreateGroup";
 
-export default function GroupsSection({ onSelectGroup, isMobile }) {
+export default function GroupsSection({ onSelectGroup, isMobile, selectedGroup }) {
   const [add, setAdd] = useState(false);
   const [groups, setGroups] = useState([]);
 
-  // Load groups from localStorage on initial render
   useEffect(() => {
     const loadGroups = () => {
       const storedGroups = JSON.parse(localStorage.getItem("groups")) || [];
@@ -41,18 +40,20 @@ export default function GroupsSection({ onSelectGroup, isMobile }) {
   };
 
   return (
-    <div className={`relative bg-white shadow-md flex flex-col ${isMobile ? 'w-full h-full' : 'w-[300px] h-screen'}`}>
-      <p className="mx-auto text-3xl font-medium py-9">Pocket Notes</p>
+    <div className={`relative bg-white flex flex-col ${isMobile ? 'w-full h-full' : 'w-[300px] h-screen'}`}>
+      <h1 className="text-2xl font-bold px-4 py-6">Pocket Notes</h1>
       
-      <div className="flex-1 overflow-y-auto p-3 scrollbar">
+      <div className="flex-1 overflow-y-auto">
         {groups.map((group) => (
           <div 
             key={group.id} 
-            className="flex items-center gap-4 mb-3 p-2 rounded-md cursor-pointer hover:bg-gray-100"
+            className={`flex items-center gap-4 py-3 px-4 cursor-pointer rounded-md ${
+              selectedGroup?.id === group.id ? 'active:bg-[#2F2F2F2B]' : 'hover:bg-[#2F2F2F2B]'
+            }`}
             onClick={() => onSelectGroup(group)}
           >
             <div
-              className="w-10 h-10 flex items-center justify-center rounded-full text-white"
+              className="w-[50px] h-[50px] flex items-center justify-center rounded-full text-white text-lg font-medium"
               style={{ backgroundColor: group.color }}
             >
               {group.initials}
