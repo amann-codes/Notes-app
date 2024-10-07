@@ -21,9 +21,9 @@ export default function GroupsSection({ onSelectGroup, isMobile, selectedGroup }
       name: groupName,
       color,
       initials: getInitials(groupName),
-      notes: []
+      notes: [],
     };
-    
+
     const updatedGroups = [...groups, newGroup];
     setGroups(updatedGroups);
     localStorage.setItem("groups", JSON.stringify(updatedGroups));
@@ -40,16 +40,14 @@ export default function GroupsSection({ onSelectGroup, isMobile, selectedGroup }
   };
 
   return (
-    <div className={`relative bg-white flex flex-col ${isMobile ? 'w-full h-full' : 'w-[300px] h-screen'}`}>
-      <h1 className="text-2xl font-bold px-4 py-6">Pocket Notes</h1>
+    <div className={`relative bg-white shadow-md flex flex-col ${isMobile ? 'w-full h-full' : 'w-[300px] h-screen'}`}>
+      <p className="mx-auto text-3xl font-medium py-9">Pocket Notes</p>
       
-      <div className="flex-1 overflow-y-auto">
+      <div className="flex-1 overflow-y-auto p-3 scrollbar">
         {groups.map((group) => (
           <div 
             key={group.id} 
-            className={`flex items-center gap-4 py-3 px-4 cursor-pointer rounded-md ${
-              selectedGroup?.id === group.id ? 'active:bg-[#2F2F2F2B]' : 'hover:bg-[#2F2F2F2B]'
-            }`}
+            className="flex items-center gap-4 mb-3 p-2 rounded-md cursor-pointer hover:bg-gray-100"
             onClick={() => onSelectGroup(group)}
           >
             <div
