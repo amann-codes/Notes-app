@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import image from "./image.png";
 
 export default function NotesSection({ selectedGroup, isMobile, onBack }) {
   const [notes, setNotes] = useState([]);
@@ -22,11 +23,13 @@ export default function NotesSection({ selectedGroup, isMobile, onBack }) {
 
   const formatTimestamp = (timestamp) => {
     const date = new Date(timestamp);
+
     const dateStr = date.toLocaleString("en-US", {
       day: "numeric",
       month: "short",
       year: "numeric",
     });
+
     const timeStr = date.toLocaleString("en-US", {
       hour: "numeric",
       minute: "2-digit",
@@ -73,8 +76,8 @@ export default function NotesSection({ selectedGroup, isMobile, onBack }) {
   };
 
   return (
-    <div className="flex-1 flex flex-col h-full bg-[#2F2F2F2B]">
-      <div className="bg-[#E8E8E8] p-4 flex items-center">
+    <div className="flex-1 flex flex-col h-full">
+      <div className="bg-[#001F8B] p-4 flex items-center">
         {isMobile && (
           <button onClick={onBack} className="mr-4">
             <svg
@@ -99,10 +102,10 @@ export default function NotesSection({ selectedGroup, isMobile, onBack }) {
         >
           {selectedGroup?.initials}
         </div>
-        <h2 className="text-2xl font-bold">{selectedGroup?.name}</h2>
+        <h2 className="text-2xl font-bold text-white">{selectedGroup?.name}</h2>
       </div>
 
-      <div className="flex-1 overflow-y-auto p-4">
+      <div className="flex-1 overflow-y-auto p-4 bg-[#DAE5F5]">
         {!notes.length ? (
           <div className="flex flex-col items-center justify-center h-full text-gray-500">
             <p className="text-2xl mb-2">No notes yet</p>
@@ -110,7 +113,7 @@ export default function NotesSection({ selectedGroup, isMobile, onBack }) {
           </div>
         ) : (
           notes.map((note) => (
-            <div key={note.id} className="flex flex-col mb-4 p-3 bg-white rounded-md">
+            <div className="flex flex-col mb-4 p-3 bg-[#FFFFFF] rounded-md">
               <p className="mb-2">{note.content}</p>
               <div className="flex justify-end">
                 {formatTimestamp(note.timestamp)}
@@ -120,11 +123,12 @@ export default function NotesSection({ selectedGroup, isMobile, onBack }) {
         )}
       </div>
 
-      <div className="p-6 bg-white sticky bottom-0">
+      <div className="p-4 bg-[#001F8B] sticky bottom-0">
         <div className="relative">
           <textarea
             className="w-full h-[100px] p-3 pr-12 rounded-md resize-none border-2 border-[#16008B]"
-            placeholder="Enter your text here..."
+            rows="1"
+            placeholder="Here’s the sample text for sample work"
             value={newNote}
             onChange={(e) => setNewNote(e.target.value)}
             onKeyDown={handleKeyDown}
@@ -135,11 +139,11 @@ export default function NotesSection({ selectedGroup, isMobile, onBack }) {
             disabled={!newNote.trim()}
           >
             {newNote.trim() ? (
-              <svg width="35" height="29" viewBox="0 0 35 29" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <svg width="25" height="29" viewBox="0 0 35 29" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M0 29V18.125L14.5 14.5L0 10.875V0L34.4375 14.5L0 29Z" fill="#001F8B"/>
               </svg>
             ) : (
-              <svg width="35" height="29" viewBox="0 0 35 29" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <svg width="25" height="29" viewBox="0 0 35 29" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M0 29V18.125L14.5 14.5L0 10.875V0L34.4375 14.5L0 29Z" fill="#ABABAB"/>
               </svg>
             )}
